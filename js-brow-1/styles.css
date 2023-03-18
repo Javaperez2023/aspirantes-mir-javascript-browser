@@ -1,0 +1,35 @@
+*{
+	font-family: 'oswald', Microsoft Sans Serif;
+}
+
+.cont{
+	background: linear-gradient(#ff5050, #6666ff);
+	width: 300px;
+	padding: 20px;
+	margin:0 auto;
+	border-radius: 20px;
+	box-shadow: 5px 5px rgba(0,0,0,0.3);
+}
+.texto{
+	padding: 7px;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 9px 0;
+	border:none;
+}
+.button{
+	background: radial-gradient(#6666ff,#ff5050);
+	color:	white;
+	padding: 5px 15px 5px 15px;
+	text-align: right;
+	border: none;
+	box-shadow: 5px 5px rgba(0,0,0,0.3);
+}
+.but{
+	text-align: right;
+	
+}
+label,h1,h2,p{
+	color:	white;
+}
+
