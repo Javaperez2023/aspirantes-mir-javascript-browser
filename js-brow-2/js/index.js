@@ -1,111 +1,104 @@
-const contenedor = document.querySelector(".tareas");
 const input = document.querySelector(".input");
-const add = document.querySelector(".button");
-const del = document.querySelector(".delete");
+const tareas = document.querySelector(".tareas");
+const boton = document.querySelector(".add");
 const done = document.querySelector(".done");
 const undone = document.querySelector(".undone");
+const delet = document.querySelector(".delete");
 const all = document.querySelector(".all");
-
+let array = [];
 let cuenta = 1;
-add.addEventListener("click", agrega);
-del.addEventListener("click", borrar);
-contenedor.addEventListener("click", franja);
-done.addEventListener("click", comp);
-undone.addEventListener("click", hidd);
-all.addEventListener("click",show);
 
-function agrega(){
-    
-    const entrada = input.value;
-    if (entrada !== ""){
-        let divisor = document.createElement("DIV");
-        divisor.classList.add("visible","tarea");
-        divisor.id ="tarea " + cuenta;
-        
-        let label = document.createElement("label");
-        label.classList.add("false");
-        let texLabel = document.createTextNode(entrada);
-        let check = document.createElement("input");
-        check.type = "checkbox";
-        check.classList.add("checkbox", "false", "visible");
-        check.id = cuenta;
-        
-        label.appendChild(check);
-        label.appendChild(texLabel);
-        divisor.appendChild(label);
-        contenedor.appendChild(divisor);
-        input.value ="";
-        cuenta ++;
-        
+boton.addEventListener("click", agrega);
+done.addEventListener("click",hechas);
+undone.addEventListener("click",nohechas);
+delet.addEventListener("click",borra);
+all.addEventListener("click", todos);
+
+function agrega (){
+    if (input.value !== ""){  
+    tarea = {
+        id : cuenta,
+        title : input.value,
+        complete : false,
+    };
+    array.push(tarea);
+    console.log(array);
+    pinta(array);
+    input.value = "";
+    console.log(array);
+    contador();
     }
     
 }
-function borrar (){
-    let check = document.querySelectorAll(".checkbox");
-    check.forEach(function(checkbox){
-        if (checkbox.checked) {
-            checkbox.parentNode.parentNode.remove();
-          }
-          
-    });
-}
 
-function franja (){
-    let check = document.querySelectorAll(".checkbox");
-    check.forEach(function(checkbox){
-        if (checkbox.checked) {
-            checkbox.classList.replace("false","true");
-            checkbox.parentNode.classList.replace("false","is-completed");
+function pinta (a){
+    let arreglo = a;
+    tareas.innerHTML = "";
+    arreglo.forEach(function(tarea){
+        let divisor = document.createElement("div");
+        divisor.classList.add("visible","tarea");
+        let label = document.createElement("label");
+        let textLabel = document.createTextNode(tarea.title);
+        let check = document.createElement("input");
+        check.type = "checkbox";
+        check.checked = tarea.complete;
+        check.addEventListener("click",function(){
+            tarea.complete = check.checked;
+            console.log(array);
+            if (check.checked) {
+                label.classList.add("is-completed");
+              } else {
+                label.classList.remove("is-completed");
+              }
+            
+        });
+
+        label.appendChild(check);
+        label.appendChild(textLabel);
+        divisor.appendChild(label);
+        
+        if(tarea.complete){
+            divisor.classList.add("complete");
+            label.classList.add("is-completed");
+            check.checked = true;
+            
             
         }
         else{
-            checkbox.classList.replace("true","false");
-            checkbox.parentNode.classList.replace("is-completed","false");
-        }
-    });
-
-}
-function comp(){
-    let check = document.querySelectorAll(".checkbox");
-    check.forEach(function(checkbox){
-        if (checkbox.checked) {
-            checkbox.classList.replace("hidden","visible");
-            checkbox.parentNode.parentNode.classList.replace("hidden","visible");
+            check.checked = false;
             
         }
-        else{
-            checkbox.classList.replace("visible","hidden");
-            checkbox.parentNode.parentNode.classList.replace("visible","hidden");
-        }
+        tareas.appendChild(divisor);
     });
-
 }
-function hidd(){
-    let check = document.querySelectorAll(".checkbox");
-    check.forEach(function(checkbox){
-        if (checkbox.checked) {
-            checkbox.classList.replace("visible","hidden");
-            checkbox.parentNode.parentNode.classList.replace("visible","hidden");
-        }
-        else{
-            checkbox.classList.replace("hidden","visible");
-            checkbox.parentNode.parentNode.classList.replace("hidden","visible");
-        }
-    });
 
-
+function hechas (){
+    let dones = array.filter(tarea => tarea.complete === true);
+    console.log(dones);
+    pinta(dones);
 }
-function show(){
-    let check = document.querySelectorAll(".checkbox");
-    check.forEach(function(checkbox){
-        if (checkbox.checked) {
-            checkbox.classList.replace("hidden","visible");
-            checkbox.parentNode.parentNode.classList.replace("hidden","visible");
-        }
-        else{
-            checkbox.classList.replace("hidden","visible");
-            checkbox.parentNode.parentNode.classList.replace("hidden","visible");
-        }
-    });
 
+function nohechas (){
+    let dones = array.filter(tarea => tarea.complete === false);
+    console.log(dones);
+    pinta(dones);
+}
+
+function borra (){
+    let dones = array.filter(tarea => tarea.complete === false);
+    array = dones;
+    contador();
+    pinta(array);
+}
+function todos(){
+    let dones = array;
+    pinta(dones);
+}
+
+function contador (){
+cuenta = array.reduce(function(max, obj){
+        return obj.id > max ? obj.id : max;
+    },0);
+    cuenta = cuenta + 1;
+    console.log(cuenta);
 }
