@@ -1,0 +1,48 @@
+*{
+    font-family: "Josefin Sans";
+}
+
+.cont{
+    background: linear-gradient(#666666,#1a1a1a);
+    width: 300px;
+    padding: 40px;
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 0 0 6px 0 black;
+}
+h1{
+    font-size: 40px;
+}
+h1,h2, .labelName, .labelCorreo, p{
+    color:white;
+}
+.labelName, .labelCorreo, .botones, p{
+    padding: 10px;
+    color:white;
+    font-size: 18px;
+}
+input{
+    background: none;
+    color: white;
+    width: 100%;
+    border:none;
+    height:25px;
+    outline: none;
+    font-size: 18px;
+}
+.inputCorreo, .inputName{
+    border-bottom: solid white;
+}
+.botones{
+    text-align: right;
+}
+button{
+    margin: 20px;
+    height: 30px;
+    color: gray;
+    border: none;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.8);
+}
